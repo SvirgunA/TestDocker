@@ -1,26 +1,34 @@
-#FROM  microsoft/dotnet-framework:4.7.2-sdk AS build
-FROM mcr.microsoft.com/dotnet/framework/sdk:4.8 AS build
+FROM  microsoft/dotnet-framework:4.7.2-sdk AS build
 WORKDIR /app
 
 # copy csproj and restore as distinct layers
 COPY *.sln .
 COPY ConsoleApp/*.csproj ./ConsoleApp/
 COPY ConsoleApp/*.config ./ConsoleApp/
+COPY ./Configs/*.config ./ConfigurationFiles/
+
 RUN dir
+RUN dir c:\app\ConfigurationFiles
 
 RUN dotnet restore ./ConsoleApp
+#set environment variables
+ENV ENVIRONMENT DEBUG
 
+#copy all and build
 COPY . ./
-RUN dir
-WORKDIR /app/ConsoleApp
-RUN dotnet build
 
-FROM build AS publish
 WORKDIR /app/ConsoleApp
-RUN dotnet publish -c Release -o out
+RUN msbuild /p:Configuration=Release
 
-#FROM microsoft/aspnet:4.7.2 AS runtime
-FROM mcr.microsoft.com/dotnet/framework/runtime:4.8 AS runtime
+FROM microsoft/aspnet:4.7.2 AS runtime
 WORKDIR /app
-COPY --from=publish /app/ConsoleApp/out ./
-ENTRYPOINT ["ConsoleApp.exe"]
+COPY --from=build /app/ConsoleApp/bin/Release/. ./
+
+#copy configuration files
+COPY --from=build /app/ConfigurationFiles/. ./cfg
+
+#copy data for transformation
+COPY --from=build /app/Tools/Microsoft.Web.XmlTransform.dll ./
+COPY --from=build /app/Scripts/AppConfigTransform.ps1 ./
+
+ENTRYPOINT powershell -File AppConfigTransform.ps1

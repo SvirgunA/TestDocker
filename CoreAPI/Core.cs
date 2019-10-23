@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Configs;
+using Newtonsoft.Json;
 using System;
 using System.IO;
 using System.Threading;
@@ -16,6 +17,9 @@ namespace CoreAPI
         {
             try
             {
+                var env = new ConfigData().EnvName;
+                Console.WriteLine($"env - {env}");
+                WriteToFile($"env - {env}");
                 var i = 0;
                 while (true)
                 {
