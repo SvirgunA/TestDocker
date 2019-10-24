@@ -1,7 +1,7 @@
 [{
 "ServiceName":"TickerTocker_RTBS_FUTURES_FOREX",
 "CommandLine": {
-	"Instance":1,
+	"Instance":4,
 	"LoadBalancingScheme":"Deterministic",
 	"Names":"FUTURES,Currencies",
 	"Port":10041
