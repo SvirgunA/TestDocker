@@ -9,7 +9,7 @@ namespace ConsoleApp
         {
             try
             {
-                var mech = new Core1();
+                var mech = new Core1(string.Join("", args));
                 mech.ProcessLoop();
             }
             catch (Exception e)

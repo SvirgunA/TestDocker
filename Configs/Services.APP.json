@@ -1,0 +1,19 @@
+[{
+"ServiceName":"TickerTocker_RTBS_FUTURES_FOREX",
+"CommandLine": {
+	"Instance":1,
+	"LoadBalancingScheme":"Deterministic",
+	"Names":"FUTURES,Currencies",
+	"Port":10041
+	}
+},
+{
+	"ServiceName":"TickerTocker_RTBS_NYSE_0I",
+"CommandLine": {
+	"Instance":1,
+	"LoadBalancingScheme":"Deterministic",
+	"Names":"NYSE",
+	"SubsetSymbolRange":"0,I",
+	"Port":10021
+	}
+}]

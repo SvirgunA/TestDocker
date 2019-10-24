@@ -6,13 +6,14 @@ COPY *.sln .
 COPY ConsoleApp/*.csproj ./ConsoleApp/
 COPY ConsoleApp/*.config ./ConsoleApp/
 COPY ./Configs/*.config ./ConfigurationFiles/
+COPY ./Configs/Services.*.json ./ConfigurationFiles/
 
-RUN dir
 RUN dir c:\app\ConfigurationFiles
 
 RUN dotnet restore ./ConsoleApp
 #set environment variables
 ENV ENVIRONMENT DEBUG
+ENV SERVICE_NAME EMPTY
 
 #copy all and build
 COPY . ./

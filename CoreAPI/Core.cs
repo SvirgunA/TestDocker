@@ -8,9 +8,10 @@ namespace CoreAPI
 {
     public class Core1
     {
-        public Core1()
+        private readonly string _args;
+        public Core1(string arguments)
         {
-
+            _args = arguments;
         }
 
         public void ProcessLoop()
@@ -20,6 +21,7 @@ namespace CoreAPI
                 var env = new ConfigData().EnvName;
                 Console.WriteLine($"env - {env}");
                 WriteToFile($"env - {env}");
+                WriteToFile($"Command line arguments: {_args}");
                 var i = 0;
                 while (true)
                 {

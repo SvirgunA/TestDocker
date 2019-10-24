@@ -50,6 +50,8 @@
     <None Include="App.Base.config" />
     <None Include="App.DEBUG.config" />
     <None Include="App.PROD.config" />
+    <None Include="Services.APP.json" />
+    <None Include="Services.DEV.json" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
