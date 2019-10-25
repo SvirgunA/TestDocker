@@ -1,8 +1,30 @@
 version: 2.1
-  jobs:
-    build:
-      docker: 
-        - image: circleci/node:4.8.2 # the primary container, where your job's commands are run
-      steps:
-        - checkout # check out the code in the project directory
-        - run: echo "hello world" # run the `echo` command
+
+orbs:
+  win: circleci/windows@1.0.0
+
+jobs:
+  build:
+    executor:
+      name: win/vs2019
+      shell: powershell.exe
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - dotnet-packages-v1-{{ checksum "circleci-demo-windows.csproj" }}
+      - run:
+          name: "Install project dependencies"
+          command: dotnet.exe restore
+      - save_cache:
+          paths:
+            - C:\Users\circleci\.nuget\packages
+          key: dotnet-packages-v1-{{ checksum "circleci-demo-windows.csproj" }}
+      - run:
+          name: "Run Build step"
+          command: dotnet.exe publish -c Release -r win10-x64
+      - run:
+          name: "Test the executable"
+          command: .\bin\Release\netcoreapp2.1\win10-x64\publish\circleci-demo-windows.exe
+      - store_artifacts:
+          path: .\bin\Release\netcoreapp2.1\win10-x64\publish\circleci-demo-windows.exe
