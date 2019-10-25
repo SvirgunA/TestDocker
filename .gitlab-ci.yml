@@ -1,4 +1,4 @@
-image: docker-windows:stable
+image: docker-windows:latest
 
 services:
   - docker:dind
