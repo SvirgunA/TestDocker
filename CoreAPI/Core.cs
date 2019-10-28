@@ -16,6 +16,7 @@ namespace CoreAPI
 
         public void ProcessLoop()
         {
+            asdf
             try
             {
                 var env = new ConfigData().EnvName;
