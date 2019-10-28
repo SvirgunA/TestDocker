@@ -26,7 +26,7 @@ namespace CoreAPI
                 while (true)
                 {
                     i++;
-                    WriteToFile(JsonConvert.SerializeObject(new Test1("Func recall ABABA", DateTime.Now), Formatting.Indented));
+                    WriteToFile(JsonConvert.SerializeObject(new Test1("Func recall ;slkdf", DateTime.Now), Formatting.Indented));
                     Thread.Sleep(2000);
                     if (i > 5)
                         throw new Exception("MoreThanTen");
