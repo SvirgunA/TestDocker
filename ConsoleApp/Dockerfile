@@ -9,8 +9,7 @@ COPY ./Configs/*.config ./ConfigurationFiles/
 COPY ./Configs/Services.*.json ./ConfigurationFiles/
 
 RUN dir c:\app\ConfigurationFiles
-
-RUN dotnet restore ./ConsoleApp
+RUN nuget restore 
 #set environment variables
 ENV ENVIRONMENT DEBUG
 ENV SERVICE_NAME EMPTY
